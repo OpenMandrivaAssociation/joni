@@ -1,18 +1,14 @@
 
-
-
-%define gcj_support 1
-
 Name:           joni
 Version:        1.0.2
-Release:        %mkrel 0.4.1
+Release:        %mkrel 0.4.2
 Summary:        Java regular expression library
 Group:          Development/Java
 License:        MIT
 URL:            http://jruby.codehaus.org/
 # The source for this package was pulled from upstream's vcs. Use the
 # following commands to generate the tarball:
-#   svn export http://svn.codehaus.org/jruby/joni/tags/1.0.2/ joni-1.0.2
+#   svn export -r 6859 http://svn.codehaus.org/jruby/joni/trunk joni-1.0.2
 #   tar -cjf joni-1.0.2.tar.bz2 joni-1.0.2
 Source0:        %{name}-%{version}.tar.bz2
 Patch0:         joni-set-java-5_0-target-and-source.patch
