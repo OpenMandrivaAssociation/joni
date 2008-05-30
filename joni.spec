@@ -1,3 +1,5 @@
+%define gcj_support 1
+
 
 Name:           joni
 Version:        1.0.2
@@ -11,7 +13,6 @@ URL:            http://jruby.codehaus.org/
 #   svn export -r 6859 http://svn.codehaus.org/jruby/joni/trunk joni-1.0.2
 #   tar -cjf joni-1.0.2.tar.bz2 joni-1.0.2
 Source0:        %{name}-%{version}.tar.bz2
-Patch0:         joni-set-java-5_0-target-and-source.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 BuildRequires:  java-rpmbuild >= 1.5
@@ -32,11 +33,9 @@ to java. It is used by jruby.
 
 %prep
 %setup -q
-%patch0 -p0
-
 
 %build
-%ant build
+%ant -Dant.build.javac.target=1.5 -Dant.build.javac.source=1.5 build
 
 
 %install
