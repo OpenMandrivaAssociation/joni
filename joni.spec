@@ -1,9 +1,9 @@
-%define gcj_support 1
+%define gcj_support 0
 
 
 Name:           joni
 Version:        1.0.2
-Release:        %mkrel 0.4.2
+Release:        %mkrel 0.4.3
 Summary:        Java regular expression library
 Group:          Development/Java
 License:        MIT
@@ -23,8 +23,9 @@ BuildRequires:  java-gcj-compat-devel >= 1.0.31
 %endif
 Requires:       java >= 1.5
 Requires:       jpackage-utils
-Requires(post):   java-gcj-compat >= 1.0.31
-Requires(postun): java-gcj-compat >= 1.0.31
+%if ! %{gcj_support}
+BuildArch:      noarch
+%endif
 
 %description
 joni is a port of Oniguruma, a regular expressions library,
