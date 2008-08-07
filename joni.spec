@@ -3,7 +3,7 @@
 
 Name:           joni
 Version:        1.0.2
-Release:        %mkrel 0.4.3
+Release:        %mkrel 4.4.3
 Summary:        Java regular expression library
 Group:          Development/Java
 License:        MIT
