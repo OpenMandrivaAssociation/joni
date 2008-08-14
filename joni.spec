@@ -2,17 +2,18 @@
 
 
 Name:           joni
-Version:        1.0.2
-Release:        %mkrel 4.4.3
+Version:        1.0.3
+Release:        %mkrel 0.3.svn7235.1
 Summary:        Java regular expression library
 Group:          Development/Java
 License:        MIT
 URL:            http://jruby.codehaus.org/
 # The source for this package was pulled from upstream's vcs. Use the
 # following commands to generate the tarball:
-#   svn export -r 6859 http://svn.codehaus.org/jruby/joni/trunk joni-1.0.2
-#   tar -cjf joni-1.0.2.tar.bz2 joni-1.0.2
-Source0:        %{name}-%{version}.tar.bz2
+#   svn export -r 7235 http://svn.codehaus.org/jruby/joni/trunk/ joni-1.0.3
+#   tar -cjf joni-1.0.3.tar.bz2 joni-1.0.3
+Source0:          %{name}-%{version}.tar.bz2
+Patch0:           joni-set-java-5_0-target-and-source.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 BuildRequires:  java-rpmbuild >= 1.5
@@ -34,9 +35,10 @@ to java. It is used by jruby.
 
 %prep
 %setup -q
+%patch0 -p0
 
 %build
-%ant -Dant.build.javac.target=1.5 -Dant.build.javac.source=1.5 build
+%ant build
 
 
 %install
