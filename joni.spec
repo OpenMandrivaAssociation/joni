@@ -2,8 +2,8 @@
 
 
 Name:           joni
-Version:        1.0.3
-Release:        %mkrel 0.3.svn7235.2
+Version:        1.1.3
+Release:        %mkrel 0.1.svn7235.2
 Summary:        Java regular expression library
 Group:          Development/Java
 License:        MIT
