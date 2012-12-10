@@ -69,3 +69,39 @@ rm -rf %{buildroot}
 %doc pom.xml
 %{_javadir}/%{name}.jar
 %{gcj_files}
+
+
+%changelog
+* Mon Dec 06 2010 Oden Eriksson <oeriksson@mandriva.com> 1.1.3-0.1.svn7235.3mdv2011.0
++ Revision: 612510
+- the mass rebuild of 2010.1 packages
+
+* Thu Feb 25 2010 Sandro Cazzaniga <kharec@mandriva.org> 1.1.3-0.1.svn7235.2mdv2010.1
++ Revision: 510955
+- update to 1.1.3
+
+* Fri Sep 04 2009 Thierry Vignaud <tv@mandriva.org> 1.0.3-0.3.svn7235.2mdv2010.0
++ Revision: 429644
+- rebuild
+
+* Thu Aug 14 2008 Alexander Kurtakov <akurtakov@mandriva.org> 1.0.3-0.3.svn7235.1mdv2009.0
++ Revision: 271715
+- new svn snapshot
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - rebuild early 2009.0 package (before pixel changes)
+
+* Sat Jun 07 2008 Alexander Kurtakov <akurtakov@mandriva.org> 1.0.2-0.4.3mdv2009.0
++ Revision: 216570
+- disable gcj dependency
+
+* Fri May 30 2008 Alexander Kurtakov <akurtakov@mandriva.org> 1.0.2-0.4.2mdv2009.0
++ Revision: 213568
+- remove useless patch
+- new snapshot for the new jruby
+
+* Mon Apr 28 2008 Alexander Kurtakov <akurtakov@mandriva.org> 1.0.2-0.4.1mdv2009.0
++ Revision: 197993
+- import joni
+
+
