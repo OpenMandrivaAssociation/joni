@@ -1,0 +1,15 @@
+--- pom.xml	2012-10-08 20:53:08.000000000 +0200
++++ pom.xml.orig	2013-02-26 15:43:53.961731353 +0100
+@@ -95,12 +95,6 @@
+     <sourceDirectory>src</sourceDirectory>
+     <testSourceDirectory>test</testSourceDirectory>
+     <finalName>joni</finalName>
+-    <extensions>
+-      <extension>
+-        <groupId>org.apache.maven.wagon</groupId>
+-        <artifactId>wagon-webdav</artifactId>
+-      </extension>
+-    </extensions>
+     <plugins>
+       <plugin>
+         <artifactId>maven-compiler-plugin</artifactId>

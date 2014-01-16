@@ -1,107 +1,142 @@
-%define gcj_support 0
+%{?_javapackages_macros:%_javapackages_macros}
+Name:             joni
+Version:          1.1.9
+Release:          3.0%{?dist}
+Summary:          Java port of Oniguruma regexp library 
 
+License:          MIT
+URL:              http://github.com/jruby/%{name}
+Source0:          https://github.com/jruby/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Patch1:           joni-remove-useless-wagon-dependency.patch
 
-Name:           joni
-Version:        1.1.3
-Release:        %mkrel 0.1.svn7235.3
-Summary:        Java regular expression library
-Group:          Development/Java
-License:        MIT
-URL:            http://jruby.codehaus.org/
-# The source for this package was pulled from upstream's vcs. Use the
-# following commands to generate the tarball:
-#   svn export -r 7235 http://svn.codehaus.org/jruby/joni/trunk/ joni-1.0.3
-#   tar -cjf joni-1.0.3.tar.bz2 joni-1.0.3
-Source0:          %{name}-%{version}.tar.bz2
-Patch0:           joni-set-java-5_0-target-and-source.patch
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
+BuildRequires:    java-devel
+BuildRequires:    jcodings
+BuildRequires:    jpackage-utils
+BuildRequires:    junit
+BuildRequires:    maven-local
+BuildRequires:    maven-compiler-plugin
+BuildRequires:    maven-jar-plugin
+BuildRequires:    maven-surefire-plugin
 
-BuildRequires:  java-rpmbuild >= 1.5
-BuildRequires:  ant
-BuildRequires:  jpackage-utils
-%if %{gcj_support}
-BuildRequires:  java-gcj-compat-devel >= 1.0.31
-%endif
-Requires:       java >= 1.5
-Requires:       jpackage-utils
-%if ! %{gcj_support}
+BuildRequires:    objectweb-asm4
+
+Requires:         java
+Requires:         jcodings
+Requires:         jpackage-utils
+Requires:         objectweb-asm4
+
 BuildArch:      noarch
-%endif
+
 
 %description
 joni is a port of Oniguruma, a regular expressions library,
 to java. It is used by jruby.
 
+%package javadoc
+
+Summary:        Javadoc for %{name}
+Requires:       jpackage-utils
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %setup -q
-%patch0 -p0
+%patch1 -p0
+
+# fixes rpmlint warning about wrong-file-end-of-line-encoding
+sed -i -e 's|\r||' test/org/joni/test/TestC.java
+sed -i -e 's|\r||' test/org/joni/test/TestU.java
+sed -i -e 's|\r||' test/org/joni/test/TestA.java
+
+%mvn_file : %{name}
 
 %build
-%ant build
-
+%mvn_build -f
 
 %install
-rm -rf %{buildroot}
+%mvn_install
 
-# jars
-install -d -m 755 %{buildroot}%{_javadir}
-# install unversioned jar as per Java Packaging Guidelines
-install -m 644 target/%{name}.jar %{buildroot}%{_javadir}/%{name}.jar
+%files -f .mfiles
+%doc MANIFEST.MF
 
-%{gcj_compile}
-
-
-%post
-%{update_gcjdb}
-
-
-%postun
-%{clean_gcjdb}
-
-
-%clean
-rm -rf %{buildroot}
-
-
-%files
-%defattr(-,root,root,-)
-%doc pom.xml
-%{_javadir}/%{name}.jar
-%{gcj_files}
-
+%files javadoc -f .mfiles-javadoc
 
 %changelog
-* Mon Dec 06 2010 Oden Eriksson <oeriksson@mandriva.com> 1.1.3-0.1.svn7235.3mdv2011.0
-+ Revision: 612510
-- the mass rebuild of 2010.1 packages
+* Mon Aug 12 2013 Alexander Kurtakov <akurtako@redhat.com> 1.1.9-3
+- Start using xmvn.
 
-* Thu Feb 25 2010 Sandro Cazzaniga <kharec@mandriva.org> 1.1.3-0.1.svn7235.2mdv2010.1
-+ Revision: 510955
-- update to 1.1.3
+* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
-* Fri Sep 04 2009 Thierry Vignaud <tv@mandriva.org> 1.0.3-0.3.svn7235.2mdv2010.0
-+ Revision: 429644
-- rebuild
+* Tue Feb 26 2013 Bohuslav Kabrda <bkabrda@redhat.com> - 1.1.9-1
+- Updated to version 1.1.9.
+- Switched from ant to maven.
 
-* Thu Aug 14 2008 Alexander Kurtakov <akurtakov@mandriva.org> 1.0.3-0.3.svn7235.1mdv2009.0
-+ Revision: 271715
-- new svn snapshot
+* Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
-  + Thierry Vignaud <tv@mandriva.org>
-    - rebuild early 2009.0 package (before pixel changes)
+* Tue Oct 09 2012 gil cattaneo <puntogil@libero.it> - 1.1.3-8
+- add maven pom
+- adapt to current guideline
 
-* Sat Jun 07 2008 Alexander Kurtakov <akurtakov@mandriva.org> 1.0.2-0.4.3mdv2009.0
-+ Revision: 216570
-- disable gcj dependency
+* Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
 
-* Fri May 30 2008 Alexander Kurtakov <akurtakov@mandriva.org> 1.0.2-0.4.2mdv2009.0
-+ Revision: 213568
-- remove useless patch
-- new snapshot for the new jruby
+* Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 
-* Mon Apr 28 2008 Alexander Kurtakov <akurtakov@mandriva.org> 1.0.2-0.4.1mdv2009.0
-+ Revision: 197993
-- import joni
+* Wed Feb 09 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
+* Mon Feb 22 2010 Mohammed Morsi <mmorsi@redhat.com> - 1.1.3-4
+- fixed end of line encoding rpmlint warning
+- removed uneccessary deps
 
+* Wed Feb 17 2010 Mohammed Morsi <mmorsi@redhat.com> - 1.1.3-3
+- removed gcj bits
+- updated package to conform to guidelines based on feedback
+- corrected source url
+
+* Fri Jan 22 2010 Mohammed Morsi <mmorsi@redhat.com> - 1.1.3-2
+- Unorphaned / updated package
+
+* Fri Mar 6 2009 Conrad Meyer <konrad@tylerc.org> - 1.1.3-1
+- Bump to 1.1.3.
+
+* Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
+
+* Fri Dec 12 2008 Conrad Meyer <konrad@tylerc.org> - 1.1.2-1
+- Bump to 1.1.2.
+
+* Fri Nov 28 2008 Conrad Meyer <konrad@tylerc.org> - 1.1.1-1
+- Bump to 1.1.1.
+
+* Sun Aug 31 2008 Conrad Meyer <konrad@tylerc.org> - 1.0.3-1
+- Official 1.0.3 release.
+
+* Sat Jul 19 2008 Conrad Meyer <konrad@tylerc.org> - 1.0.3-0.3.svn7235
+- Build AOT bits.
+
+* Sat Jul 19 2008 Conrad Meyer <konrad@tylerc.org> - 1.0.3-0.2.svn7235
+- Bump revision because of stupid packager's mistake.
+
+* Sat Jul 19 2008 Conrad Meyer <konrad@tylerc.org> - 1.0.3-0.1.svn7235
+- Bump to trunk version of joni for JRuby 1.1.3.
+- Switch to noarch for fc10 and up.
+
+* Sat Apr 5 2008 Conrad Meyer <konrad@tylerc.org> - 1.0.2-4
+- Compile AOT bits.
+
+* Sun Mar 16 2008 Conrad Meyer <konrad@tylerc.org> - 1.0.2-3
+- Bump to 1.0.2.
+- Add pom.xml to doc.
+- Install unversioned jar.
+
+* Sun Mar 2 2008 Conrad Meyer <konrad@tylerc.org> - 1.0.1-2
+- joni is MIT, not BSD.
+- Require java and BuildRequire java-devel, not icedtea.
+
+* Sun Mar 2 2008 Conrad Meyer <konrad@tylerc.org> - 1.0.1-1
+- Initial package.
