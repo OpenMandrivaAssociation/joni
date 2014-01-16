@@ -6,7 +6,7 @@ Summary:          Java port of Oniguruma regexp library
 
 License:          MIT
 URL:              http://github.com/jruby/%{name}
-Source0:          https://github.com/jruby/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:          https://github.com/jruby/%{name}/archive/%{version}.tar.gz/%{name}-%{version}.tar.gz
 Patch1:           joni-remove-useless-wagon-dependency.patch
 
 BuildRequires:    java-devel
