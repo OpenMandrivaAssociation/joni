@@ -1,9 +1,9 @@
 %{?_javapackages_macros:%_javapackages_macros}
 Name:             joni
-Version:          1.1.9
-Release:          3.0%{?dist}
+Version:          2.1.3
+Release:          1.1
 Summary:          Java port of Oniguruma regexp library 
-
+Group:		  Development/Java
 License:          MIT
 URL:              http://github.com/jruby/%{name}
 Source0:          https://github.com/jruby/%{name}/archive/%{version}.tar.gz/%{name}-%{version}.tar.gz
@@ -41,7 +41,7 @@ Requires:       jpackage-utils
 API documentation for %{name}.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{name}-%{version}
 %patch1 -p0
 
 # fixes rpmlint warning about wrong-file-end-of-line-encoding
