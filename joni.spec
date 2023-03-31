@@ -1,7 +1,7 @@
 %{?_javapackages_macros:%_javapackages_macros}
 Name:             joni
 Version:          2.1.3
-Release:          1.3
+Release:          1.4
 Summary:          Java port of Oniguruma regexp library 
 Group:		  Development/Java
 License:          MIT
