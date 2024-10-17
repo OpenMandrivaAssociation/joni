@@ -5,7 +5,7 @@ Release:          1.4
 Summary:          Java port of Oniguruma regexp library 
 Group:		  Development/Java
 License:          MIT
-URL:              http://github.com/jruby/%{name}
+URL:              https://github.com/jruby/%{name}
 Source0:          https://github.com/jruby/%{name}/archive/%{version}.tar.gz/%{name}-%{version}.tar.gz
 Patch1:           joni-remove-useless-wagon-dependency.patch
 
