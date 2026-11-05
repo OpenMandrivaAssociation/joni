@@ -15,6 +15,9 @@ Requires:         jcodings
 Requires:         javapackages-filesystem
 
 BuildArch:      noarch
+# Literal, so the first rpmbuild -bs records them before sysjar is installed.
+BuildRequires:	maven
+BuildRequires:	java-current-devel
 BuildSystem:	maven
 BuildOption(install):	--file-name %{name}
 
